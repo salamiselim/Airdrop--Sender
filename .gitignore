@@ -48,4 +48,4 @@ node_modules/
 /playwright/.cache/
 
 # Synpress
-.cache-Synpress/
+.cache-synpress/
