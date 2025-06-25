@@ -1,6 +1,6 @@
- "use client"
+"use client"
 
-import { InputField } from "@/components/InputField"
+import { InputForm } from "@/components/InputField"
 import { useState, useMemo, useEffect } from "react"
 import { chainsToTSender, tsenderAbi, erc20Abi } from "@/constants"
 import { useChainId, useConfig, useAccount, useWriteContract } from "wagmi"
@@ -97,7 +97,6 @@ export default function AirdropForm () {
     async function getApproveAmount(tSenderAddress: string | null): Promise<bigint> {
         if (!tSenderAddress) {
             alert("No address found, use a supported chain")
-            // Use BigInt() constructor instead of 0n literal
             return BigInt(0)
         }
         const response = await readContract(config,{
@@ -162,62 +161,65 @@ export default function AirdropForm () {
     }, [recipient])
 
     return (
-        <div className="flex flex-col gap-6 max-w-2xl mx-auto">
-            <InputField
+        <div className="flex flex-col gap-6 max-w-2xl mx-auto bg-gradient-to-r from-indigo-900 to-purple-900 p-6 rounded-xl shadow-lg">
+            <InputForm
                 label="Token Address"
                 placeholder="0x..."
                 value={tokenAddress}
-                onChange={e => setTokenAddress(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTokenAddress(e.target.value)}
+                darkMode={true}
             />
             
-            <InputField
+            <InputForm
                 label="Recipient Addresses"
                 placeholder="0x851, 0x234"
                 value={recipient}
-                onChange={e => setRecipient(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setRecipient(e.target.value)}
                 large={true} 
+                darkMode={true}
             />
             
-            <InputField
+            <InputForm
                 label="Amounts"
                 placeholder="100,200,300..."
                 value={amounts}
-                onChange={e => setAmounts(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setAmounts(e.target.value)}
                 large={true}
+                darkMode={true}
             />
             
             {/* Information Box - Always visible */}
-            <div className="border border-zinc-200 rounded-lg p-4 bg-zinc-50">
-                <h3 className="font-medium text-zinc-800 mb-2">Airdrop Details</h3>
+            <div className="border border-indigo-500/50 rounded-lg p-4 bg-gradient-to-br from-indigo-800/50 to-purple-800/50">
+                <h3 className="font-medium text-indigo-100 mb-2">Airdrop Details</h3>
                 
                 <div className="grid grid-cols-2 gap-2 text-sm">
                     {/* Recipient Count */}
-                    <div className="text-zinc-600">Recipients:</div>
-                    <div className="text-zinc-800 font-medium">
+                    <div className="text-indigo-300">Recipients:</div>
+                    <div className="text-indigo-50 font-medium">
                         {recipientCount}
                     </div>
                     
                     {/* Total Amount */}
-                    <div className="text-zinc-600">Total to Send:</div>
-                    <div className="text-zinc-800 font-medium">
+                    <div className="text-indigo-300">Total to Send:</div>
+                    <div className="text-indigo-50 font-medium">
                         {total} {tokenDetails.symbol ? tokenDetails.symbol : 'tokens'}
                     </div>
                     
                     {/* Token Details - Only show if token address exists */}
                     {tokenAddress && (
                         <>
-                            <div className="text-zinc-600">Token Name:</div>
-                            <div className="text-zinc-800 font-medium">
+                            <div className="text-indigo-300">Token Name:</div>
+                            <div className="text-indigo-50 font-medium">
                                 {tokenDetails.loading ? "Loading..." : tokenDetails.name || "N/A"}
                             </div>
                             
-                            <div className="text-zinc-600">Symbol:</div>
-                            <div className="text-zinc-800 font-medium">
+                            <div className="text-indigo-300">Symbol:</div>
+                            <div className="text-indigo-50 font-medium">
                                 {tokenDetails.loading ? "Loading..." : tokenDetails.symbol || "N/A"}
                             </div>
                             
-                            <div className="text-zinc-600">Decimals:</div>
-                            <div className="text-zinc-800 font-medium">
+                            <div className="text-indigo-300">Decimals:</div>
+                            <div className="text-indigo-50 font-medium">
                                 {tokenDetails.loading ? "Loading..." : tokenDetails.decimals || "N/A"}
                             </div>
                         </>
@@ -230,13 +232,12 @@ export default function AirdropForm () {
                 disabled={isProcessing || isPending}
                 className={`
                     px-6 py-3 rounded-lg font-medium flex items-center justify-center
-                    bg-gradient-to-r from-blue-500 to-indigo-600
-                    text-white shadow-lg
+                    bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg
                     transform transition-all duration-300
-                    hover:scale-105 hover:from-blue-600 hover:to-indigo-700
-                    focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2
+                    hover:from-indigo-500 hover:to-purple-500
+                    focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-indigo-900
                     active:scale-95
-                    disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100
+                    disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:from-indigo-600 disabled:hover:to-purple-600
                 `}
             >
                 {(isProcessing || isPending) ? (
@@ -269,9 +270,9 @@ export default function AirdropForm () {
             </button>
             
             {hash && (
-                <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg text-sm">
-                    <p className="font-medium text-blue-800">Transaction Submitted</p>
-                    <p className="text-blue-600 break-all mt-1">
+                <div className="mt-4 p-3 bg-gradient-to-r from-indigo-800/30 to-purple-800/30 border border-indigo-500/50 rounded-lg text-sm">
+                    <p className="font-medium text-indigo-200">Transaction Submitted</p>
+                    <p className="text-indigo-100 break-all mt-1">
                         Hash: {hash}
                     </p>
                 </div>

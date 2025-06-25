@@ -8,13 +8,13 @@ export function Header() {
       {/* Left side - Title and GitHub icon */}
       <div className="flex items-center space-x-4">
         {/* If you have a logo image */}
-        {/* <Image src="/logo.png" alt="TSender" width={40} height={40} /> */}
+        {/* <Image src="/logo.png" alt="Airdrop Sender" width={40} height={40} /> */}
         
-        <h1 className="text-xl font-bold">TSender</h1>
+        <h1 className="text-xl font-bold">Airdrop Sender</h1>
         
         {/* GitHub link moved to left side */}
         <a 
-          href="https://github.com/salamiselim/Tsender" 
+          href="https://github.com/salamiselim/Airdrop--Sender" 
           target="_blank" 
           rel="noopener noreferrer"
           className="p-2 rounded-full hover:bg-gray-100 transition-colors"
