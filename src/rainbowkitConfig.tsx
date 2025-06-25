@@ -5,7 +5,7 @@ import {anvil, zksync, mainnet} from "wagmi/chains"
 
 export default getDefaultConfig({
     appName: "TSender",
-    projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!,
+    projectId: "82721db4d10b78e9ec1eb4de7f0f983b",
     chains: [anvil, zksync, mainnet],
     ssr: false
 })
