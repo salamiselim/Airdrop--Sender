@@ -1,0 +1,10 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+
+[rpc_endpoints]
+sepolia = 'https://rpc.sepolia.org'
+
+[etherscan]
+sepolia = { key = 'SEPOLIA_API_KEY' }
